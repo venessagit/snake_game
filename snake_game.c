@@ -1,0 +1,119 @@
+/*
+Welcome to the snake game!
+
+*****************************
+*                           *
+*                           *
+*                           *
+*         #                 *
+*                           *
+*         0                 *
+*                           *
+*                           *
+*                           *
+*                           *
+*                           *
+*****************************
+
+Rules to play:
+    * The user can move in-between the * borders.
+    * The user aim is to eat the #.
+    * Game ends hits a border.
+    * 
+To-do:
+    * Include a points system.
+    * Grow the snake after eating a fruit
+    * The snake dies after eating itself.
+
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <conio.h>
+
+#define BORDER_LENGTH 20
+#define BORDER_WIDTH 50
+
+
+void create_border(char block[][BORDER_WIDTH], int *fruit, int *snake){
+    
+    char border = '*';
+    char empty = ' ';
+    char fruitchar = '#';
+    char snakechar = '0';
+
+    for (int i=0; i < BORDER_LENGTH; i++){
+        for(int j = 0; j < BORDER_WIDTH; j++){
+            if(i == 0 || j == 0 || i == BORDER_LENGTH-1 || j == BORDER_WIDTH-1 ){
+                block[i][j] = border;
+            } else if(i == fruit[0] && j== fruit[1]){
+                block[i][j] = fruitchar;          
+            } else if(i == snake[0] && j== snake[1]){
+                block[i][j] = snakechar;  
+            } else {
+                block[i][j] = empty;
+            }
+            printf("%c", block[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void get_random_position(int *row, int *col){
+    *row = (rand() % (BORDER_LENGTH -2)) +1;
+    *col = (rand() % (BORDER_WIDTH -2)) +1;
+}
+
+int  movesnake(char c, int *snake, int *fruit){
+
+    if (c == 'w')
+        snake[0] -= 1;
+    else if (c == 's')
+        snake[0] += 1;
+    else if (c == 'a')
+        snake[1] -= 1;
+    else if (c == 'd')
+        snake[1] += 1; 
+        
+    if(snake[0] == 0 || snake[1] == 0 || snake[0] == BORDER_LENGTH-1 || snake[1] == BORDER_WIDTH-1 ){
+        printf("Sorry, you lost the game!");
+        return 0; //lost the game
+    } else if(snake[0] == fruit[0] && snake[1]== fruit[1]){
+        printf("Yay, you got the fruit!");
+        return 1; //ate a fruit
+    } 
+    return 2; //continue playing
+
+}
+
+int main(){
+    
+    srand(time(NULL));
+    int row = 0;
+    int col = 0;
+    int notdead = 1;
+    int cont = 2;
+
+    int *row_pointer = &row;
+    int *col_pointer = &col;
+    char block [BORDER_LENGTH][BORDER_WIDTH] ={0};
+
+    get_random_position(row_pointer, col_pointer);
+    int snake [2] = {row, col};
+
+    get_random_position(row_pointer, col_pointer);
+    int fruit [2] = {row, col};
+
+    while (cont == 2){
+        system("cls"); 
+        create_border(block, fruit, snake);
+
+        printf("W (Up) \t A (Left) \t D (Right) \t S (Down)\n");
+        char c = getch();
+        cont = movesnake(c, snake, fruit);
+
+    }
+
+    return 0;
+}
