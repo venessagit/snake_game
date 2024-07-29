@@ -2,7 +2,7 @@
 Welcome to the snake game!
 
 
-***
+```
 *****************************
 *                           *
 *                           *
@@ -16,14 +16,14 @@ Welcome to the snake game!
 *                           *
 *                           *
 ***************************** 
-***
+```
 
 <br>Rules to play: <br>
     * The user can move in-between the * borders. <br>
     * The user aim is to eat the #.  <br>
     * Game ends hits a border. <br>
     
-##To-do: <br>
+To-do: <br>
     * Include a points system. <br>
     * Auto move in direction. <br>
     * Grow the snake after eating a fruit. <br>
