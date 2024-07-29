@@ -1,4 +1,4 @@
-/*
+
 Welcome to the snake game!
 
 *****************************
@@ -27,5 +27,3 @@ Welcome to the snake game!
     * Fruit disappears after eating. < br>
     * The snake dies after eating itself. < br>
     * Make sure the fruit does not appear on snake. < br>
-
-*/
