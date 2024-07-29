@@ -1,6 +1,8 @@
 
 Welcome to the snake game!
 
+
+***
 *****************************
 *                           *
 *                           *
@@ -14,6 +16,7 @@ Welcome to the snake game!
 *                           *
 *                           *
 ***************************** 
+***
 
 <br>Rules to play: <br>
     * The user can move in-between the * borders. <br>
