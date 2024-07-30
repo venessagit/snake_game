@@ -24,9 +24,9 @@ Welcome to the snake game!
     * Game ends hits a border. <br>
     
 To-do: <br>
-    * Include a points system. <br>
-    * Auto move in direction. <br>
-    * Grow the snake after eating a fruit. <br>
-    * Fruit disappears after eating. <br>
-    * The snake dies after eating itself. <br>
-    * Make sure the fruit does not appear on snake. <br>
+    - [ &cross; ] Include a points system. <br>
+    - [ &check; ] Auto move in direction. <br>
+    - [ &cross; ] Grow the snake after eating a fruit. <br>
+    - [ &cross; ] Fruit disappears after eating. <br>
+    - [ &cross; ] The snake dies after eating itself. <br>
+    - [ &cross; ] Make sure the fruit does not appear on snake. <br>
