@@ -21,10 +21,12 @@ Welcome to the snake game!
 <br>Rules to play: <br>
     * The user can move in-between the * borders. <br>
     * The user aim is to eat the #.  <br>
+    * Get 100 points.  <br>
     * Game ends hits a border. <br>
     
 To-do: <br>
-    - [ &check;] Include a points system. <br>
+    - [ &check; ] Include a points system. <br>
+    - [ &check; ] Increase speed after eating each fruit. <br>
     - [ &check; ] Auto move in direction. <br>
     - [ &check; ] Fruit disappears after eating. <br>
     - [ &cross; ] Grow the snake after eating a fruit. <br>
