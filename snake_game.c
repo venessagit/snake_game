@@ -23,8 +23,8 @@ Rules to play:
 To-do:
     * Include a points system.
     * Auto move in direction.
-    * Grow the snake after eating a fruit.
     * Fruit disappears after eating.
+    * Grow the snake after eating a fruit.
     * The snake dies after eating itself.
     * Make sure the fruit does not appear on snake.
 
@@ -69,22 +69,37 @@ void get_random_position(int *row, int *col){
     *col = (rand() % (BORDER_WIDTH -2)) +1;
 }
 
-int  movesnake(char c, int *snake, int *fruit){
+int  movesnake(char c, int *snake, int *fruit, int *score){
 
-    if (c == 'w' || c == 'W')
-        snake[0]--;
-    else if (c == 's' || c == 'S')
-        snake[0]++;
-    else if (c == 'a' || c == 'A')
-        snake[1]--;
-    else if (c == 'd' || c == 'D')
-        snake[1]++; 
+    switch (c) {
+        case 'w':
+        case 'W':
+            snake[0]--;
+            break;
+        case 's':
+        case 'S':
+            snake[0]++;
+            break;
+        case 'a':
+        case 'A':
+            snake[1]--;
+            break;
+        case 'd':
+        case 'D':
+            snake[1]++;
+            break;
+        default:
+            break;
+    }
+
+    Sleep(500);
         
     if(snake[0] == 0 || snake[1] == 0 || snake[0] == BORDER_LENGTH-1 || snake[1] == BORDER_WIDTH-1 ){
-        printf("Sorry, you lost the game!");
+        printf("Sorry, you lost the game! \n Total Points: %d", *score);
         return 0; //lost the game
     } else if(snake[0] == fruit[0] && snake[1]== fruit[1]){
         printf("Yay, you got the fruit!");
+        *score += 10;
         return 1; //ate a fruit
     } 
     return 2; //continue playing
@@ -97,6 +112,7 @@ int main(){
     int row = 0;
     int col = 0;
     int cont = 2;
+    int score = 0;
 
     int *row_pointer = &row;
     int *col_pointer = &col;
@@ -113,18 +129,21 @@ int main(){
         system("cls"); 
         create_border(block, fruit, snake);
 
+        printf("Score: %d Points\n", score);
         printf("W (Up) \t A (Left) \t D (Right) \t S (Down)\n");
 
-        if (_kbhit()){
+        if (_kbhit())
             c = getch();
-            cont = movesnake(c, snake, fruit);
-        } else {
-            cont = movesnake(c, snake, fruit);
 
+        cont = movesnake(c, snake, fruit, &score);
+
+        if (cont == 1){
+            get_random_position(row_pointer, col_pointer);
+            fruit [0] = row;
+            fruit [1] = col;
         }
-        Sleep(500);
-
-    } while (cont == 2) ;
+          
+    } while (cont > 0) ;
 
     return 0;
 }
