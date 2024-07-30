@@ -22,7 +22,7 @@ Welcome to the snake game!
     * The user can move in-between the * borders. <br>
     * The user aim is to eat the #.  <br>
     * Get 100 points.  <br>
-    * Game ends hits a border. <br>
+    * Game ends when the user hits a border. <br>
     
 To-do: <br>
     - [ &check; ] Include a points system. <br>
