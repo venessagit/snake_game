@@ -21,7 +21,7 @@ Welcome to the snake game!
 <br>Rules to play: <br>
     * The user can move in-between the * borders. <br>
     * The user aim is to eat the #.  <br>
-    * Get 100 points.  <br>
+    * Get 100 points to win.  <br>
     * Game ends when the user hits a border. <br>
     
 To-do: <br>
