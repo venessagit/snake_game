@@ -41,24 +41,28 @@ To-do:
 #define BORDER_LENGTH 20
 #define BORDER_WIDTH 50
 
+typedef struct {
+    int row [100];
+    int col [100];
+    int score;
+    int speed;
+    int length;
+    int inputchar;
+} snakestruct;
 
-void create_border(char block[][BORDER_WIDTH], int *fruit, int *snake){
-    
-    char border = '*';
-    char empty = ' ';
-    char fruitchar = '#';
-    char snakechar = '0';
+
+void create_border(char block[][BORDER_WIDTH], int *fruit, snakestruct *snake){
 
     for (int i=0; i < BORDER_LENGTH; i++){
         for(int j = 0; j < BORDER_WIDTH; j++){
             if(i == 0 || j == 0 || i == BORDER_LENGTH-1 || j == BORDER_WIDTH-1 ){
-                block[i][j] = border;
+                block[i][j] = '*';
             } else if(i == fruit[0] && j== fruit[1]){
-                block[i][j] = fruitchar;          
-            } else if(i == snake[0] && j== snake[1]){
-                block[i][j] = snakechar;  
+                block[i][j] = '#';          
+            } else if(i == snake->row[0] && j== snake->col[0]){
+                block[i][j] = '0';  
             } else {
-                block[i][j] = empty;
+                block[i][j] = ' ';
             }
             printf("%c", block[i][j]);
         }
@@ -71,38 +75,38 @@ void get_random_position(int *row, int *col){
     *col = (rand() % (BORDER_WIDTH -2)) +1;
 }
 
-int  movesnake(char c, int *snake, int *fruit, int *score){
+int  movesnake(snakestruct *snake, int *fruit){
 
-    switch (c) {
+    switch (snake->inputchar) {
         case 'w':
         case 'W':
-            snake[0]--;
+            snake->row[0]--;
             break;
         case 's':
         case 'S':
-            snake[0]++;
+            snake->row[0]++;
             break;
         case 'a':
         case 'A':
-            snake[1]--;
+            snake->col[0]--;
             break;
         case 'd':
         case 'D':
-            snake[1]++;
+            snake->col[0]++;
             break;
         default:
             break;
     }
 
         
-    if(snake[0] == 0 || snake[1] == 0 || snake[0] == BORDER_LENGTH-1 || snake[1] == BORDER_WIDTH-1 ){
-        printf("Sorry, you lost the game! \n\tTotal Points: %d", *score);
+    if(snake->row[0] == 0 || snake->col[0] == 0 || snake->row[0] == BORDER_LENGTH-1 || snake->col[0] == BORDER_WIDTH-1 ){
+        printf("Sorry, you lost the game! \n\tTotal Points: %d", snake->score);
         return 0; //lost the game
-    } else if(snake[0] == fruit[0] && snake[1]== fruit[1]){
-        *score += 10;
-        if (*score == 100){
-            printf("Congratulations, you won!\n\tTotal Points: %d", *score);
-            return 0;
+    } else if(snake->row[0] == fruit[0] && snake->col[0]== fruit[1]){
+        snake->score += 10;
+        if (snake->score == 100){
+            printf("Congratulations, you won!\n\tTotal Points: %d", snake->score);
+            return 0; // End game
         }
         return 1; //ate a fruit
     } 
@@ -112,45 +116,36 @@ int  movesnake(char c, int *snake, int *fruit, int *score){
 
 int main(){
     
-    srand(time(NULL));
-    int row = 0;
-    int col = 0;
-    int cont = 1;
-    int score = 0;
-    int time = 550;
+    snakestruct snake = {.speed = 550};
+    get_random_position(&snake.row[0], &snake.col[0]);
 
-    int *row_pointer = &row;
-    int *col_pointer = &col;
     char block [BORDER_LENGTH][BORDER_WIDTH] ={0};
-    char c = ' ';
-
-    get_random_position(row_pointer, col_pointer);
-    int snake [2] = {row, col};
-
     int fruit [2] = {0,0};
+    int cont = 1;
 
+    srand(time(NULL));
+    
     do {
         if (cont == 1){
-            get_random_position(row_pointer, col_pointer);
-            fruit [0] = row;
-            fruit [1] = col;
-            time -= 50;
+            get_random_position(&fruit[0], &fruit[1]);
+            snake.speed -= 50;
         }
         
         system("cls"); 
-        create_border(block, fruit, snake);
+        create_border(block, fruit, &snake);
 
-        printf("Score: %d Points\n", score);
+        printf("Score: %d Points\n", snake.score);
         printf("W (Up) \t A (Left) \t D (Right) \t S (Down)\n");
 
-        Sleep(time);
+        Sleep(snake.speed);
 
         if (_kbhit())
-            c = getch();
+            snake.inputchar = getch();
 
-        cont = movesnake(c, snake, fruit, &score);
+        cont = movesnake(&snake, fruit);
 
     } while (cont > 0) ;
+    
 
     return 0;
 }
