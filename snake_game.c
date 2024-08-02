@@ -56,13 +56,13 @@ void create_border(char block[][BORDER_WIDTH], int *fruit, snakestruct *snake){
     for (int i=0; i < BORDER_LENGTH; i++){
         for(int j = 0; j < BORDER_WIDTH; j++){
             if(i == 0 || j == 0 || i == BORDER_LENGTH-1 || j == BORDER_WIDTH-1 ){
-                block[i][j] = '*';
+                block[i][j] = '#'; //Borders
             } else if(i == fruit[0] && j== fruit[1]){
-                block[i][j] = '#';          
+                block[i][j] = '*'; //Fruits
             } else if(i == snake->row[0] && j== snake->col[0]){
-                block[i][j] = '0';  
+                block[i][j] = '0'; //Snake
             } else {
-                block[i][j] = ' ';
+                block[i][j] = ' '; //Empty Space
             }
             printf("%c", block[i][j]);
         }
