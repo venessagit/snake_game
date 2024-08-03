@@ -50,6 +50,7 @@ typedef struct {
     int inputchar;
 } snakestruct;
 
+
 void create_border(char block[][BORDER_WIDTH], int *fruit, snakestruct *snake){
 
     for (int i=0; i < BORDER_LENGTH; i++){
@@ -58,21 +59,16 @@ void create_border(char block[][BORDER_WIDTH], int *fruit, snakestruct *snake){
                 block[i][j] = '#'; //Borders
             } else if(i == fruit[0] && j== fruit[1]){
                 block[i][j] = '*'; //Fruits
-            } else if(i == snake->row[snake->length] && j== snake->col[snake->length]){
+            } else if(i == snake->row[0] && j== snake->col[0]){
                 block[i][j] = '0'; //Snake
             } else {
                 block[i][j] = ' '; //Empty Space
-            }
-            for(int k = 0; k <= snake->length; k++){
-                if(i == snake->row[k] && j== snake->col[k]){
-                block[i][j] = '0'; //Snake
-            }
             }
             printf("%c", block[i][j]);
         }
         printf("\n");
     }
-} 
+}
 
 void get_random_position(int *row, int *col){
     *row = (rand() % (BORDER_LENGTH -2)) +1;
@@ -84,39 +80,30 @@ int  movesnake(snakestruct *snake, int *fruit){
     switch (snake->inputchar) {
         case 'w':
         case 'W':
-            snake->row[snake->length]--;
+            snake->row[0]--;
             break;
         case 's':
         case 'S':
-            snake->row[snake->length]++;
+            snake->row[0]++;
             break;
         case 'a':
         case 'A':
-            snake->col[snake->length]--;
+            snake->col[0]--;
             break;
         case 'd':
         case 'D':
-            snake->col[snake->length]++;
+            snake->col[0]++;
             break;
         default:
             break;
     }
 
-    for(int i = 0; i < snake->length; i++){
-        snake->row[i] = snake->row[i+1];
-        snake->col[i] = snake->col[i+1];
-    }
         
-    if(snake->row[snake->length] == 0 || snake->col[snake->length] == 0 || snake->row[snake->length] == BORDER_LENGTH-1 || snake->col[snake->length] == BORDER_WIDTH-1 ){
+    if(snake->row[0] == 0 || snake->col[0] == 0 || snake->row[0] == BORDER_LENGTH-1 || snake->col[0] == BORDER_WIDTH-1 ){
         printf("Sorry, you lost the game! \n\tTotal Points: %d", snake->score);
         return 0; //lost the game
-    } else if(snake->row[snake->length] == fruit[0] && snake->col[snake->length]== fruit[1]){
+    } else if(snake->row[0] == fruit[0] && snake->col[0]== fruit[1]){
         snake->score += 10;
-        int head = snake->length + 1;
-        snake->row[head] = snake->row[snake->length];
-        snake->col[head] = snake->col[snake->length];
-        snake->length= head ;
-
         if (snake->score == 100){
             printf("Congratulations, you won!\n\tTotal Points: %d", snake->score);
             return 0; // End game
@@ -158,6 +145,7 @@ int main(){
         cont = movesnake(&snake, fruit);
 
     } while (cont > 0) ;
+    
 
     return 0;
 }
