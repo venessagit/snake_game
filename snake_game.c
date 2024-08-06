@@ -58,15 +58,13 @@ void create_border(char block[][BORDER_WIDTH], int *fruit, snakestruct *snake){
                 block[i][j] = '#'; //Borders
             } else if(i == fruit[0] && j== fruit[1]){
                 block[i][j] = '*'; //Fruits
-            } else if(i == snake->row[snake->length] && j== snake->col[snake->length]){
-                block[i][j] = '0'; //Snake
             } else {
                 block[i][j] = ' '; //Empty Space
             }
             for(int k = 0; k <= snake->length; k++){
                 if(i == snake->row[k] && j== snake->col[k]){
                 block[i][j] = '0'; //Snake
-            }
+                }
             }
             printf("%c", block[i][j]);
         }
@@ -113,9 +111,18 @@ int  movesnake(snakestruct *snake, int *fruit){
     } else if(snake->row[snake->length] == fruit[0] && snake->col[snake->length]== fruit[1]){
         snake->score += 10;
         int head = snake->length + 1;
+
+        //Creates a body
+        if (snake->length == 0){
+            snake->row[head] = snake->row[snake->length];
+            snake->col[head] = snake->col[snake->length];
+            snake->length++;
+            head++;
+        }
+
         snake->row[head] = snake->row[snake->length];
         snake->col[head] = snake->col[snake->length];
-        snake->length= head ;
+        snake->length++ ;
 
         if (snake->score == 100){
             printf("Congratulations, you won!\n\tTotal Points: %d", snake->score);

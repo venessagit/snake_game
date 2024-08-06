@@ -29,6 +29,6 @@ To-do: <br>
     - [ &check; ] Increase speed after eating each fruit. <br>
     - [ &check; ] Auto move in direction. <br>
     - [ &check; ] Fruit disappears after eating. <br>
-    - [ &cross; ] Grow the snake after eating a fruit. <br>
+    - [ &check; ] Grow the snake after eating a fruit. <br>
     - [ &cross; ] The snake dies after eating itself. <br>
     - [ &cross; ] Make sure the fruit does not appear on snake. <br>
