@@ -1,35 +1,6 @@
 /*
 Welcome to the snake game!
-
-*****************************
-*                           *
-*                           *
-*                           *
-*         #                 *
-*                           *
-*         0                 *
-*                           *
-*                           *
-*                           *
-*                           *
-*                           *
-*****************************
-
-Rules to play:
-    * The user can move in-between the * borders.
-    * The user aim is to eat the #. 
-    * Get 100 points.
-    * Game ends hits a border.
-    * 
-To-do:
-    * Include a points system.
-    * Increase speed after eating each fruit.
-    * Auto move in direction.
-    * Fruit disappears after eating.
-    * Grow the snake after eating a fruit.
-    * The snake dies after eating itself.
-    * Make sure the fruit does not appear on snake.
-
+Coder: Venessa Hosein
 */
 
 #include <stdio.h>
@@ -153,6 +124,12 @@ int main(){
     do {
         if (cont == 1){
             get_random_position(&fruit[0], &fruit[1]);
+
+            //Ensure that the fruit does not appear on the snake
+            for(int i = 0; i <= snake.length; i++){
+                if (fruit[0] == snake.row[i] && fruit[1] == snake.col[i])
+                    get_random_position(&fruit[0], &fruit[1]);
+            }
             snake.speed -= 50;
         }
         

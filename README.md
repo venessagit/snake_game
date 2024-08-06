@@ -31,4 +31,4 @@ To-do: <br>
     - [ &check; ] Fruit disappears after eating. <br>
     - [ &check; ] Grow the snake after eating a fruit. <br>
     - [ &check; ] The snake dies after eating itself. <br>
-    - [ &cross; ] Make sure the fruit does not appear on snake. <br>
+    - [ &check; ] Make sure the fruit does not appear on snake. <br>
