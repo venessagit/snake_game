@@ -101,8 +101,13 @@ int  movesnake(snakestruct *snake, int *fruit){
     }
 
     for(int i = 0; i < snake->length; i++){
+        if (snake->row[i]== snake->row[snake->length] && snake->col[i] == snake->col[snake->length]){
+            printf("You ate yourself! \n Total Points: %d ", snake->score);
+            return 0;
+        }
         snake->row[i] = snake->row[i+1];
         snake->col[i] = snake->col[i+1];
+
     }
         
     if(snake->row[snake->length] == 0 || snake->col[snake->length] == 0 || snake->row[snake->length] == BORDER_LENGTH-1 || snake->col[snake->length] == BORDER_WIDTH-1 ){
